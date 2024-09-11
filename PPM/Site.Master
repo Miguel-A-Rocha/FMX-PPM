@@ -1,0 +1,90 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PPM.Site" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="Content/themes/base/all.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+    <%--<link href="Content/jquery.loading.css" rel="stylesheet" />--%>
+    <link href="Content/bootstrap-chosen.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <style type="modal-backdrop">
+            .modal-backdrop {
+                background-color: rgba(255,255,255,0.5)!important;
+            }
+        </style>
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="w-100">
+            <nav class="navbar navbar-expand-lg bg-light border-bottom border-danger pt-0 pb-0 ps-2 pe-2">
+                <div class="navbar-brand ">
+                    <div class="input-group shadow rounded border border-danger">
+                        <span class="input-group-text">
+                            <asp:Image ID="imgMagna" runat="server" ImageUrl="~/Content/images/logo_u_magna_175x44.png" Width="150px" Height="30px" AlternateText="Magna" />
+                        </span>
+                        <span id="lblHeader" class="input-group-text bg-danger text-white border-0 fw-bold" style="font-size: larger!important;">Programa de Producción</span>
+                    </div>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li id="liDefault" class="nav-item fw-bold border border-bottom-0 rounded-top m-1 border-secondary">
+                            <a class="nav-link text-lg-left" href="Default.aspx">Programa</a>
+                        </li>
+                        <li id="liAdmin" class="nav-item fw-bold border border-bottom-0 rounded-top m-1 border-secondary">
+                            <a class="nav-link text-lg-left" href="Admin.aspx">Administrador</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-text">
+                    <div class="input-group">
+                        <span class="input-group-text border-secondary text-secondary-emphasis">
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <asp:LinkButton ID="lnkAdministrador" runat="server" ClientIDMode="Static" Text="" CssClass="btn btn-sm border-secondary fw-bold" data-toggle="modal" data-target="#modalLoginAvatar" href="#"></asp:LinkButton>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+        <div>
+            <asp:ToolkitScriptManager ID="tsm" runat="server">
+                <Scripts>
+                    <asp:ScriptReference Path="~/Scripts/jquery-3.7.1.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery-ui-1.13.2.js" />
+                    <asp:ScriptReference Path="~/Scripts/bootstrap.js" />
+                    <asp:ScriptReference Path="~/Scripts/chosen.jquery.js?id=1" />
+                </Scripts>
+            </asp:ToolkitScriptManager>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <script type="text/javascript" language="javascript">
+        $(function () { Sys.WebForms.PageRequestManager.getInstance().add_endRequest(master_loaded); master_loaded(); });
+        function master_loaded() {
+            $("select").not('.no-chosen').chosen({ allow_single_deselect: true, disable_search_threshold: 10 });
+            $('.datepicker').datepicker({ dateFormat: 'yy/mm/dd' }).css('z-index', '100000');
+        }
+
+        function formatMoney(n, c, d, t) {
+            var c = isNaN(c = Math.abs(c)) ? 2 : c,
+                d = d == undefined ? "." : d,
+                t = t == undefined ? "," : t,
+                s = n < 0 ? "-" : "",
+                i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+                j = (j = i.length) > 3 ? j % 3 : 0;
+
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");//
+        }
+    </script>
+</body>
+</html>
