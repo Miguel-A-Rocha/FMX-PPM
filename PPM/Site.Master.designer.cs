@@ -33,6 +33,15 @@ namespace PPM
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// tsm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager tsm;
+
+        /// <summary>
         /// imgMagna control.
         /// </summary>
         /// <remarks>
@@ -42,6 +51,33 @@ namespace PPM
         protected global::System.Web.UI.WebControls.Image imgMagna;
 
         /// <summary>
+        /// liAdministrador control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAdministrador;
+
+        /// <summary>
+        /// lnkCatalogos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkCatalogos;
+
+        /// <summary>
+        /// lnkCaptura control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkCaptura;
+
+        /// <summary>
         /// lnkAdministrador control.
         /// </summary>
         /// <remarks>
@@ -49,15 +85,6 @@ namespace PPM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkAdministrador;
-
-        /// <summary>
-        /// tsm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ToolkitScriptManager tsm;
 
         /// <summary>
         /// ContentPlaceHolder1 control.
