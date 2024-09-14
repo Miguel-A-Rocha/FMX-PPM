@@ -18,6 +18,7 @@ namespace PPM.Model
         public System.DateTime Fecha { get; set; }
         public int Turno { get; set; }
         public int PrensaId { get; set; }
+        public Nullable<int> Secuencia { get; set; }
         public string NoParte { get; set; }
         public int EstatusId { get; set; }
         public Nullable<System.DateTime> FechaHora { get; set; }

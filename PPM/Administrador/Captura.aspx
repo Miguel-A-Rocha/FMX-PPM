@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Turno</label>
-                                            <asp:DropDownList ID="ddlTurno" runat="server" CssClass="form-control no-chosen border-2 border-primary" OnSelectedIndexChanged="ddlTurno_SelectedIndexChanged">
+                                            <asp:DropDownList ID="ddlTurno" runat="server" CssClass="form-control no-chosen border-2 border-primary" AutoPostBack="true" OnSelectedIndexChanged="ddlTurno_SelectedIndexChanged">
                                                 <asp:ListItem Value="0" Text="Todos"></asp:ListItem>
                                                 <asp:ListItem Value="1" Text="1ro"></asp:ListItem>
                                                 <asp:ListItem Value="2" Text="2do"></asp:ListItem>
@@ -124,17 +124,38 @@
                                     <div class="col">
                                         <asp:Button ID="btnHiddenPrograma" runat="server" CssClass="d-none" />
                                         <asp:ModalPopupExtender ID="mdlPrograma" runat="server" TargetControlID="btnHiddenPrograma" PopupControlID="pnlProgramas" CancelControlID="btnPrograma_Cancelar" BackgroundCssClass="modal-backdrop"></asp:ModalPopupExtender>
-                                        <asp:GridView ID="gvProgramas" runat="server" DataKeyNames="id" CssClass="table table-sm small table-hover small w-100" GridLines="None" AutoGenerateColumns="false" OnRowDeleting="gvProgramas_RowDeleting" OnRowEditing="gvProgramas_RowEditing">
+                                        <asp:GridView ID="gvProgramas" runat="server" DataKeyNames="id" CssClass="table table-sm small table-hover small w-100" GridLines="None" AutoGenerateColumns="false" 
+                                            OnRowDeleting="gvProgramas_RowDeleting" 
+                                            OnRowEditing="gvProgramas_RowEditing" 
+                                            OnSelectedIndexChanging="gvProgramas_SelectedIndexChanging" 
+                                            OnRowCommand="gvProgramas_RowCommand">
+                                            <SelectedRowStyle CssClass="fw-bold border-primary text-decoration-underline border border-2" />
                                             <Columns>
-                                                <asp:BoundField HeaderText="Fecha" DataField="Fecha" ReadOnly="true" />
+                                                <asp:BoundField HeaderText="Fecha" DataField="Fecha" ReadOnly="true" DataFormatString="{0: yyyy/MM/dd}" />
                                                 <asp:BoundField HeaderText="Turno" DataField="Turno" ReadOnly="true" />
                                                 <asp:BoundField HeaderText="No.Parte" DataField="NoParte" ReadOnly="true" />
-                                                <asp:BoundField HeaderText="Estatus" DataField="Estatus" ReadOnly="true" />
-                                                <%--<asp:BoundField HeaderText="Descripción" DataField="descripcion" ReadOnly="true" />
-                                                <asp:CheckBoxField HeaderText="Activo" DataField="activo" ReadOnly="true" />--%>
+                                                <asp:BoundField HeaderText="Estatus" DataField="Estatus.nombre" ReadOnly="true" />
                                                 <asp:TemplateField ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                                     <ItemTemplate>
-                                                        <div class="btn-group border">
+                                                        <%--<asp:Label runat="server" Text='<%#Eval("Estatus.nombre") %>' ></asp:Label>--%>
+                                                        <div class="input-group input-group-sm">
+                                                            <asp:Label runat="server" CssClass='<%# "input-group-text fw-bold " + ( Eval("Estatus.color").ToString() == "bg-success" ? "text-white ": "text-dark ") + Eval("Estatus.color").ToString() %>' ></asp:Label>
+                                                        </div>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Secuencia" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                                    <ItemTemplate>
+                                                        <div class="input-group input-group-sm">
+                                                            <%--<asp:Label runat="server" CssClass="input-group-text" Text='<%#Eval("Secuencia") %>' ></asp:Label>--%>
+                                                            <asp:LinkButton runat="server" CommandName="subir" CommandArgument='<%# Eval("Secuencia") %>' CssClass="btn btn-sm small btn-light spinner-border-sm"><li class="fa fa-arrow-up" ></li></asp:LinkButton>
+                                                            <asp:LinkButton runat="server" CommandName="bajar" CommandArgument='<%# Eval("Secuencia") %>' CssClass="btn btn-sm small btn-light spinner-border-sm"><li class="fa fa-arrow-down" ></li></asp:LinkButton>
+                                                        </div>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Opciones" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                                    <ItemTemplate>
+                                                        <div class="input-group input-group-sm">
+                                                            <%--<asp:LinkButton runat="server" CommandName="select" CssClass="btn btn-sm small btn-light spinner-border-sm" ToolTip="Seleccionar"><li class="fa fa-hand-pointer-o" ></li></asp:LinkButton>--%>
                                                             <asp:LinkButton runat="server" CommandName="edit" CssClass="btn btn-sm small btn-light spinner-border-sm"><li class="fa fa-edit" ></li></asp:LinkButton>
                                                             <asp:LinkButton runat="server" CommandName="delete" CssClass="btn btn-sm small btn-light" OnClientClick="return confirm('Se eliminará el registro seleccioando ¿Continuar?');"><li class="fa fa-trash" title="eliminar"></li></asp:LinkButton>
                                                         </div>
@@ -168,25 +189,25 @@
                                 </div>
                                 <div class="row" style="max-height: 81vh!important; overflow: auto;">
                                     <div class="col">
-                                        <asp:GridView ID="gvEstatus" runat="server" DataKeyNames="id" CssClass="table table-sm small small w-100" GridLines="None" AutoGenerateColumns="false" OnSelectedIndexChanging="gvEstatus_SelectedIndexChanging">
+                                        <asp:GridView ID="gvEstatus" runat="server" ShowHeader="false" DataKeyNames="id" CssClass="table table-sm small small w-100" GridLines="None" AutoGenerateColumns="false" OnSelectedIndexChanging="gvEstatus_SelectedIndexChanging">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Nombre">
                                                     <ItemTemplate>
                                                         <div class="input-group input-group-sm">
-                                                            <asp:LinkButton runat="server" CommandName="select" CssClass='<%# " w-100 input-group-text fw-bold " + ( Eval("color").ToString() == "bg-success" ? "text-white ": "text-dark ") + Eval("color").ToString() %>' ToolTip="Asginar estado" Text='<%#Eval("nombre") %>'><li class="fa fa-refresh" ></li></asp:LinkButton>
+                                                            <asp:LinkButton runat="server" CommandName="select" Enabled="false" Font-Underline="false" CssClass='<%# " w-100 input-group-text fw-bold " + ( Eval("color").ToString() == "bg-success" ? "text-white ": "text-dark ") + Eval("color").ToString() %>' ToolTip="" Text='<%#Eval("nombre") %>'><li class="fa fa-refresh" ></li></asp:LinkButton>
                                                         </div>
                                                         
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <%--<asp:BoundField HeaderText="Color" DataField="color" ReadOnly="true" />--%>
                                                 <%--<asp:CheckBoxField HeaderText="Activo" DataField="activo" ReadOnly="true" />--%>
-                                                <asp:TemplateField ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                                <%--<asp:TemplateField ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                                     <ItemTemplate>
                                                         <div class="btn-group border">
                                                             <asp:LinkButton runat="server" CommandName="select" CssClass="btn btn-sm small btn-light spinner-border-sm" ToolTip="Asginar estado"><li class="fa fa-refresh" ></li></asp:LinkButton>
                                                         </div>
                                                     </ItemTemplate>
-                                                </asp:TemplateField>
+                                                </asp:TemplateField>--%>
                                             </Columns>
                                         </asp:GridView>
                                     </div>

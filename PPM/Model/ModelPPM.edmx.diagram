@@ -7,11 +7,11 @@
       <Diagram DiagramId="a942208c48604003847acea028cb2c33" Name="Diagram1">
         <EntityTypeShape EntityType="PPMModel.Estatus" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PPMModel.Prensas" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PPMModel.Programa" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="PPMModel.FK_Programa_Estatus" ManuallyRouted="false" />
-        <AssociationConnector Association="PPMModel.FK_Programa_Prensas" ManuallyRouted="false" />
         <EntityTypeShape EntityType="PPMModel.administradores" Width="1.5" PointX="5.375" PointY="0.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="PPMModel.Programa" Width="1.5" PointX="3" PointY="2.75" />
+        <AssociationConnector Association="PPMModel.FK_Programa_Estatus" />
+        <AssociationConnector Association="PPMModel.FK_Programa_Prensas" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
