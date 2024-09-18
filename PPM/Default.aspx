@@ -54,12 +54,12 @@
                         <div class="col">
                             <div class="card">
                                 <div class="card-header">
-                                    <asp:Label runat="server" Text='<%#Eval("Nombre") %>'></asp:Label>
+                                    <asp:Label runat="server" CssClass="h5 fw-bold" Text='<%#Eval("Nombre") %>'></asp:Label>
                                 </div>
                                 <div class="card-body p-1">
                                     <asp:GridView ID="gvPrograma" runat="server" GridLines="None" AutoGenerateColumns="false" CssClass="table table-sm small table-hover small w-100">
                                         <Columns>
-                                            <asp:BoundField HeaderText="No.Parte" DataField="NoParte" ReadOnly="true" />
+                                            <asp:BoundField HeaderText="No.Parte" DataField="NoParte" ReadOnly="true" ItemStyle-CssClass="fw-bold" />
                                             <%--<asp:BoundField HeaderText="Estatus" DataField="Estatus.nombre" ReadOnly="true" />--%>
                                             <asp:TemplateField HeaderText="Estatus">
                                                 <ItemTemplate>
