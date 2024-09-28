@@ -22,6 +22,27 @@
           <Property Name="color" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="EstatusAceros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Responsable" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Rollo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Hora" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha_captura" Type="datetime" Nullable="false" />
+          <Property Name="usuario_captura" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstatusPrensa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Prensas">
           <Key>
             <PropertyRef Name="id" />
@@ -36,7 +57,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
-          <Property Name="Turno" Type="int" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="7" />
           <Property Name="PrensaId" Type="int" Nullable="false" />
           <Property Name="Secuencia" Type="int" />
           <Property Name="NoParte" Type="varchar" MaxLength="50" Nullable="false" />
@@ -44,6 +65,9 @@
           <Property Name="FechaHora" Type="datetime" />
           <Property Name="usuario_captura" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fecha_captura" Type="datetime" Nullable="false" />
+          <Property Name="cantidad_programada" Type="float" />
+          <Property Name="cantidad_corrida" Type="float" />
+          <Property Name="EstatusPrensaId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Programa_Estatus">
           <End Role="Estatus" Type="Self.Estatus" Multiplicity="1" />
@@ -54,6 +78,18 @@
             </Principal>
             <Dependent Role="Programa">
               <PropertyRef Name="EstatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programa_EstatusPrensa">
+          <End Role="EstatusPrensa" Type="Self.EstatusPrensa" Multiplicity="1" />
+          <End Role="Programa" Type="Self.Programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstatusPrensa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Programa">
+              <PropertyRef Name="EstatusPrensaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -72,10 +108,16 @@
         <EntityContainer Name="PPMModelStoreContainer">
           <EntitySet Name="administradores" EntityType="Self.administradores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estatus" EntityType="Self.Estatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstatusAceros" EntityType="Self.EstatusAceros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstatusPrensa" EntityType="Self.EstatusPrensa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prensas" EntityType="Self.Prensas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Programa" EntityType="Self.Programa" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Programa_Estatus" Association="Self.FK_Programa_Estatus">
             <End Role="Estatus" EntitySet="Estatus" />
+            <End Role="Programa" EntitySet="Programa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programa_EstatusPrensa" Association="Self.FK_Programa_EstatusPrensa">
+            <End Role="EstatusPrensa" EntitySet="EstatusPrensa" />
             <End Role="Programa" EntitySet="Programa" />
           </AssociationSet>
           <AssociationSet Name="FK_Programa_Prensas" Association="Self.FK_Programa_Prensas">
@@ -110,15 +152,21 @@
           <EntitySet Name="Estatus" EntityType="Self.Estatus" />
           <EntitySet Name="Prensas" EntityType="Self.Prensas" />
           <EntitySet Name="administradores" EntityType="PPMModel.administradores" />
+          <EntitySet Name="EstatusPrensa" EntityType="PPMModel.EstatusPrensa" />
           <EntitySet Name="Programa" EntityType="PPMModel.Programa" />
           <AssociationSet Name="FK_Programa_Estatus" Association="PPMModel.FK_Programa_Estatus">
             <End Role="Estatus" EntitySet="Estatus" />
+            <End Role="Programa" EntitySet="Programa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programa_EstatusPrensa" Association="PPMModel.FK_Programa_EstatusPrensa">
+            <End Role="EstatusPrensa" EntitySet="EstatusPrensa" />
             <End Role="Programa" EntitySet="Programa" />
           </AssociationSet>
           <AssociationSet Name="FK_Programa_Prensas" Association="PPMModel.FK_Programa_Prensas">
             <End Role="Prensas" EntitySet="Prensas" />
             <End Role="Programa" EntitySet="Programa" />
           </AssociationSet>
+          <EntitySet Name="EstatusAceros" EntityType="PPMModel.EstatusAceros" />
           </EntityContainer>
         <EntityType Name="administradores">
           <Key>
@@ -128,13 +176,23 @@
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="activo" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="EstatusPrensa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Programa" Relationship="PPMModel.FK_Programa_EstatusPrensa" FromRole="EstatusPrensa" ToRole="Programa" />
+        </EntityType>
         <EntityType Name="Programa">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Turno" Type="Int32" Nullable="false" />
+          <Property Name="Hora" Type="Time" Precision="7" />
           <Property Name="PrensaId" Type="Int32" Nullable="false" />
           <Property Name="Secuencia" Type="Int32" />
           <Property Name="NoParte" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -142,7 +200,11 @@
           <Property Name="FechaHora" Type="DateTime" Precision="3" />
           <Property Name="usuario_captura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fecha_captura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cantidad_programada" Type="Double" />
+          <Property Name="cantidad_corrida" Type="Double" />
+          <Property Name="EstatusPrensaId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Estatus" Relationship="PPMModel.FK_Programa_Estatus" FromRole="Programa" ToRole="Estatus" />
+          <NavigationProperty Name="EstatusPrensa" Relationship="PPMModel.FK_Programa_EstatusPrensa" FromRole="Programa" ToRole="EstatusPrensa" />
           <NavigationProperty Name="Prensas" Relationship="PPMModel.FK_Programa_Prensas" FromRole="Programa" ToRole="Prensas" />
         </EntityType>
         <Association Name="FK_Programa_Estatus">
@@ -154,6 +216,18 @@
             </Principal>
             <Dependent Role="Programa">
               <PropertyRef Name="EstatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programa_EstatusPrensa">
+          <End Type="PPMModel.EstatusPrensa" Role="EstatusPrensa" Multiplicity="1" />
+          <End Type="PPMModel.Programa" Role="Programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstatusPrensa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Programa">
+              <PropertyRef Name="EstatusPrensaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -169,6 +243,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EstatusAceros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Responsable" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Rollo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Hora" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_captura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_captura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -203,9 +289,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EstatusPrensa">
+            <EntityTypeMapping TypeName="PPMModel.EstatusPrensa">
+              <MappingFragment StoreEntitySet="EstatusPrensa">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Programa">
             <EntityTypeMapping TypeName="PPMModel.Programa">
               <MappingFragment StoreEntitySet="Programa">
+                <ScalarProperty Name="EstatusPrensaId" ColumnName="EstatusPrensaId" />
+                <ScalarProperty Name="cantidad_corrida" ColumnName="cantidad_corrida" />
+                <ScalarProperty Name="cantidad_programada" ColumnName="cantidad_programada" />
                 <ScalarProperty Name="fecha_captura" ColumnName="fecha_captura" />
                 <ScalarProperty Name="usuario_captura" ColumnName="usuario_captura" />
                 <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
@@ -213,7 +312,20 @@
                 <ScalarProperty Name="NoParte" ColumnName="NoParte" />
                 <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
                 <ScalarProperty Name="PrensaId" ColumnName="PrensaId" />
-                <ScalarProperty Name="Turno" ColumnName="Turno" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstatusAceros">
+            <EntityTypeMapping TypeName="PPMModel.EstatusAceros">
+              <MappingFragment StoreEntitySet="EstatusAceros">
+                <ScalarProperty Name="usuario_captura" ColumnName="usuario_captura" />
+                <ScalarProperty Name="fecha_captura" ColumnName="fecha_captura" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Rollo" ColumnName="Rollo" />
+                <ScalarProperty Name="Responsable" ColumnName="Responsable" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

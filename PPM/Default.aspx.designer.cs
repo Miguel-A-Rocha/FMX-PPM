@@ -33,6 +33,15 @@ namespace PPM
         protected global::System.Web.UI.UpdatePanel upPanel;
 
         /// <summary>
+        /// Unnamed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.Timer Unnamed;
+
+        /// <summary>
         /// txtFecha control.
         /// </summary>
         /// <remarks>
@@ -40,15 +49,6 @@ namespace PPM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFecha;
-
-        /// <summary>
-        /// ddlTurno control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTurno;
 
         /// <summary>
         /// btnBuscar control.
@@ -67,5 +67,50 @@ namespace PPM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptPrensas;
+
+        /// <summary>
+        /// gvAceros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvAceros;
+
+        /// <summary>
+        /// gvEstatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvEstatus;
+
+        /// <summary>
+        /// gvEstatusPrensa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvEstatusPrensa;
+
+        /// <summary>
+        /// hdnProgramaId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnProgramaId;
+
+        /// <summary>
+        /// lstEstatusPrensa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lstEstatusPrensa;
     }
 }

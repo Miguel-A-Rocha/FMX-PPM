@@ -11,7 +11,7 @@ namespace PPM.Administrador
 {
 
 
-    public partial class CapturaBKP
+    public partial class Aceros
     {
 
         /// <summary>
@@ -33,24 +33,6 @@ namespace PPM.Administrador
         protected global::System.Web.UI.UpdatePanel upPanel;
 
         /// <summary>
-        /// ddlPrensas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPrensas;
-
-        /// <summary>
-        /// ddlTurno control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTurno;
-
-        /// <summary>
         /// txtFecha control.
         /// </summary>
         /// <remarks>
@@ -60,147 +42,129 @@ namespace PPM.Administrador
         protected global::System.Web.UI.WebControls.TextBox txtFecha;
 
         /// <summary>
-        /// ddlEstatus control.
+        /// lnkSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEstatus;
+        protected global::System.Web.UI.WebControls.LinkButton lnkSearch;
 
         /// <summary>
-        /// lnkProgramaSearch control.
+        /// txtAcerosSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkProgramaSearch;
+        protected global::System.Web.UI.WebControls.TextBox txtAcerosSearch;
 
         /// <summary>
-        /// lnkPrograma_Agregar control.
+        /// lnkAcerosSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkPrograma_Agregar;
+        protected global::System.Web.UI.WebControls.LinkButton lnkAcerosSearch;
 
         /// <summary>
-        /// btnHiddenPrograma control.
+        /// lnkAceros_Agregar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnHiddenPrograma;
+        protected global::System.Web.UI.WebControls.LinkButton lnkAceros_Agregar;
 
         /// <summary>
-        /// mdlPrograma control.
+        /// btnHiddenAceros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender mdlPrograma;
+        protected global::System.Web.UI.WebControls.Button btnHiddenAceros;
 
         /// <summary>
-        /// gvPrograma control.
+        /// mdlAceros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPrograma;
+        protected global::AjaxControlToolkit.ModalPopupExtender mdlAceros;
 
         /// <summary>
-        /// pnlPrograma control.
+        /// gvAceros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlPrograma;
+        protected global::System.Web.UI.WebControls.GridView gvAceros;
 
         /// <summary>
-        /// hdnPrograma_id control.
+        /// pnlAceros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnPrograma_id;
+        protected global::System.Web.UI.WebControls.Panel pnlAceros;
 
         /// <summary>
-        /// ddlPrograma_Prensa control.
+        /// hdnAcero_id control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPrograma_Prensa;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAcero_id;
 
         /// <summary>
-        /// txtPrograma_Fecha control.
+        /// txtAcero_Responsable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrograma_Fecha;
+        protected global::System.Web.UI.WebControls.TextBox txtAcero_Responsable;
 
         /// <summary>
-        /// ddlPrograma_Turno control.
+        /// txtAcero_Rollo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPrograma_Turno;
+        protected global::System.Web.UI.WebControls.TextBox txtAcero_Rollo;
 
         /// <summary>
-        /// txtPrograma_Hora control.
+        /// txtAcero_Hora control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrograma_Hora;
+        protected global::System.Web.UI.WebControls.TextBox txtAcero_Hora;
 
         /// <summary>
-        /// txtPrograma_NoParte control.
+        /// btnAcero_Cancelar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrograma_NoParte;
+        protected global::System.Web.UI.WebControls.Button btnAcero_Cancelar;
 
         /// <summary>
-        /// ddlPrograma_Estatus control.
+        /// btnAcero_Guardar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPrograma_Estatus;
-
-        /// <summary>
-        /// btnPrograma_Cancelar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPrograma_Cancelar;
-
-        /// <summary>
-        /// btnPrograma_Guardar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPrograma_Guardar;
+        protected global::System.Web.UI.WebControls.Button btnAcero_Guardar;
     }
 }

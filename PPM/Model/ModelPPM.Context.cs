@@ -28,6 +28,8 @@ namespace PPM.Model
         public virtual DbSet<Estatus> Estatus { get; set; }
         public virtual DbSet<Prensas> Prensas { get; set; }
         public virtual DbSet<administradores> administradores { get; set; }
+        public virtual DbSet<EstatusPrensa> EstatusPrensa { get; set; }
         public virtual DbSet<Programa> Programa { get; set; }
+        public virtual DbSet<EstatusAceros> EstatusAceros { get; set; }
     }
 }

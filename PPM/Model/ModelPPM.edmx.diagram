@@ -8,9 +8,12 @@
         <EntityTypeShape EntityType="PPMModel.Estatus" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PPMModel.Prensas" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PPMModel.administradores" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="PPMModel.Programa" Width="1.5" PointX="3" PointY="2.75" />
+        <EntityTypeShape EntityType="PPMModel.EstatusPrensa" Width="1.5" PointX="0.75" PointY="9.5" />
+        <EntityTypeShape EntityType="PPMModel.Programa" Width="1.5" PointX="3" PointY="2.375" />
         <AssociationConnector Association="PPMModel.FK_Programa_Estatus" />
+        <AssociationConnector Association="PPMModel.FK_Programa_EstatusPrensa" />
         <AssociationConnector Association="PPMModel.FK_Programa_Prensas" />
+        <EntityTypeShape EntityType="PPMModel.EstatusAceros" Width="1.5" PointX="5.375" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

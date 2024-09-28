@@ -42,15 +42,6 @@ namespace PPM.Administrador
         protected global::System.Web.UI.WebControls.TextBox txtFecha;
 
         /// <summary>
-        /// ddlTurno control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTurno;
-
-        /// <summary>
         /// lnkSearch control.
         /// </summary>
         /// <remarks>
@@ -159,6 +150,15 @@ namespace PPM.Administrador
         protected global::System.Web.UI.WebControls.GridView gvEstatus;
 
         /// <summary>
+        /// gvEstatusPrensa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvEstatusPrensa;
+
+        /// <summary>
         /// pnlProgramas control.
         /// </summary>
         /// <remarks>
@@ -186,6 +186,15 @@ namespace PPM.Administrador
         protected global::System.Web.UI.WebControls.HiddenField hdnPrograma_id;
 
         /// <summary>
+        /// txtPrograma_Hora control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrograma_Hora;
+
+        /// <summary>
         /// txtPrograma_NoParte control.
         /// </summary>
         /// <remarks>
@@ -195,6 +204,24 @@ namespace PPM.Administrador
         protected global::System.Web.UI.WebControls.TextBox txtPrograma_NoParte;
 
         /// <summary>
+        /// txtPrograma_CantidadProgramada control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrograma_CantidadProgramada;
+
+        /// <summary>
+        /// txtPrograma_CantidadCorrida control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrograma_CantidadCorrida;
+
+        /// <summary>
         /// ddlPrograma_Estatus control.
         /// </summary>
         /// <remarks>
@@ -202,6 +229,15 @@ namespace PPM.Administrador
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPrograma_Estatus;
+
+        /// <summary>
+        /// ddlPrograma_EstatusPrensa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPrograma_EstatusPrensa;
 
         /// <summary>
         /// btnPrograma_Cancelar control.

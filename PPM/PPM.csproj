@@ -81,8 +81,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Administrador\Aceros.aspx" />
     <Content Include="Administrador\Captura.aspx" />
-    <Content Include="Administrador\CapturaBKP.aspx" />
     <Content Include="Administrador\Catalogos.aspx" />
     <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -103,9 +103,11 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\context-menu.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\logo_u_magna_175x44.png" />
+    <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -197,28 +199,30 @@
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Scripts\context-menu.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
     <Content Include="Scripts\jquery-ui-1-13.3.js" />
     <Content Include="Scripts\jquery-ui-1.13.3.min.js" />
+    <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administrador\Aceros.aspx.cs">
+      <DependentUpon>Aceros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administrador\Aceros.aspx.designer.cs">
+      <DependentUpon>Aceros.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Administrador\Captura.aspx.cs">
       <DependentUpon>Captura.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Administrador\Captura.aspx.designer.cs">
       <DependentUpon>Captura.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Administrador\CapturaBKP.aspx.cs">
-      <DependentUpon>CapturaBKP.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Administrador\CapturaBKP.aspx.designer.cs">
-      <DependentUpon>CapturaBKP.aspx</DependentUpon>
     </Compile>
     <Compile Include="Administrador\Catalogos.aspx.cs">
       <DependentUpon>Catalogos.aspx</DependentUpon>
@@ -238,6 +242,12 @@
       <DependentUpon>ModelPPM.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Estatus.cs">
+      <DependentUpon>ModelPPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EstatusAceros.cs">
+      <DependentUpon>ModelPPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EstatusPrensa.cs">
       <DependentUpon>ModelPPM.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ModelPPM.Context.cs">

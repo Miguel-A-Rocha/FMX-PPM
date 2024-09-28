@@ -11,6 +11,8 @@
     <link href="Content/font-awesome.css" rel="stylesheet" />
     <%--<link href="Content/jquery.loading.css" rel="stylesheet" />--%>
     <link href="Content/bootstrap-chosen.css" rel="stylesheet" />
+    <link href="Content/jquery.datetimepicker.css" rel="stylesheet" />
+    <link href="Content/context-menu.css" rel="stylesheet" />
     <style type="text/css">
         .modal-backdrop {
             background-color: rgba(255,255,255,0.5) !important;
@@ -26,6 +28,10 @@
 
         .bg-verde {
             background-color: #01AE52!important;
+        }
+
+        .xdsoft_datetimepicker {
+            z-index: 999999!important;
         }
     </style>
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -44,6 +50,8 @@
                 <asp:ScriptReference Path="~/Scripts/jquery-ui-1-13.3.js" />
                 <asp:ScriptReference Path="~/Scripts/bootstrap.bundle.js" />
                 <asp:ScriptReference Path="~/Scripts/chosen.jquery.js?id=1" />
+                <asp:ScriptReference Path="~/Scripts/jquery.datetimepicker.js" />
+                <asp:ScriptReference Path="~/Scripts/context-menu.js" />
             </Scripts>
         </asp:ToolkitScriptManager>
         <div class="w-100">
@@ -77,6 +85,12 @@
                                 <li>
                                     <asp:LinkButton ID="lnkCaptura" ClientIDMode="Static" runat="server" CssClass="dropdown-item" PostBackUrl="~/Administrador/Captura.aspx" Text="Captura"></asp:LinkButton>
                                 </li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="lnkAceros" ClientIDMode="Static" runat="server" CssClass="dropdown-item" PostBackUrl="~/Administrador/Aceros.aspx" Text="Estatus Aceros"></asp:LinkButton>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -102,6 +116,9 @@
         function master_loaded() {
             $("select").not('.no-chosen').chosen({ allow_single_deselect: true, disable_search_threshold: 10 });
             $('.datepicker').datepicker({ dateFormat: 'yy/mm/dd' }).css('z-index', '100000');
+            $('.datetimepicker').datetimepicker({
+                datepicker: false, format: "H:i", mask: true
+            }).css('z-index', '100000');
         }
 
         function formatMoney(n, c, d, t) {

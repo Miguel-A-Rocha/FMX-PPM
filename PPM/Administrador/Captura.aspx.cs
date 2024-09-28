@@ -30,6 +30,12 @@ namespace PPM.Administrador
                         {
                             ddlPrograma_Estatus.Items.Add(new ListItem() { Value = estatus.id.ToString(), Text = estatus.nombre.Trim(), Enabled = estatus.activo });
                         }
+
+                        ddlPrograma_EstatusPrensa.Items.Clear();
+                        foreach (var estatus in db.EstatusPrensa.ToList())
+                        {
+                            ddlPrograma_EstatusPrensa.Items.Add(new ListItem() { Value = estatus.id.ToString(), Text = estatus.descripcion.Trim(), Enabled = estatus.activo });
+                        }
                     }
                 }
                 catch (Exception)
@@ -38,6 +44,7 @@ namespace PPM.Administrador
                 }
                 load_prensas(-1, -1, 0);
                 load_estatus(-1, -1, 0);
+                load_estatus_prensa(-1, -1, 0);
                 lnkSearch_Click(null, null);
             }
         }
@@ -45,11 +52,6 @@ namespace PPM.Administrador
         public void alerta(string mensaje)
         {
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), DateTime.Now.ToString(), "alert('" + mensaje.Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "").Replace("'", "") + "');", true);
-        }
-
-        protected void ddlTurno_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            load_programas(-1, -1, 0);
         }
 
         protected void lnkSearch_Click(object sender, EventArgs e)
@@ -87,7 +89,6 @@ namespace PPM.Administrador
             hdnPrensa_id.Value = gvPrensas.DataKeys[e.NewSelectedIndex].Value.ToString();
             load_prensas(e.NewSelectedIndex, -1, gvPrensas.PageIndex);
             load_programas(-1, -1, 0);
-            load_estatus(-1, -1, 0);
         }
 
 
@@ -95,11 +96,10 @@ namespace PPM.Administrador
         {
             Int32.TryParse(hdnPrensa_id.Value.Trim(), out Int32 _PrensaId);
             DateTime.TryParse(txtFecha.Text.Trim(), out DateTime _Fecha);
-            Int32.TryParse(ddlTurno.SelectedValue.Trim(), out Int32 _Turno);
             string search = txtProgramaSearch.Text.Trim();
             using (PPMEntities db = new PPMEntities())
             {
-                gvProgramas.DataSource = db.Programa.Where(_ => _.PrensaId == _PrensaId && _.Fecha == _Fecha && _.Turno == (_Turno == 0 ? _.Turno : _Turno) && _.NoParte.Contains(search)).OrderBy(_ => _.NoParte).OrderBy(_=>_.Fecha).ThenBy(_=>_.Turno).ThenBy(_=>_.Secuencia).ToList();
+                gvProgramas.DataSource = db.Programa.Where(_ => _.PrensaId == _PrensaId && _.Fecha == _Fecha && _.NoParte.Contains(search)).OrderBy(_ => _.NoParte).OrderBy(_=>_.Fecha).ThenBy(_=>_.Hora).ThenBy(_=>_.Secuencia).ToList();
                 gvProgramas.SelectedIndex = selectedIndex;
                 gvProgramas.EditIndex = editIndex;
                 gvProgramas.PageIndex = pageIndex;
@@ -116,6 +116,18 @@ namespace PPM.Administrador
                 gvEstatus.EditIndex = editIndex;
                 gvEstatus.PageIndex = pageIndex;
                 gvEstatus.DataBind();
+            }
+        }
+
+        protected void load_estatus_prensa(int selectedIndex, int editIndex, int pageIndex)
+        {
+            using (PPMEntities db = new PPMEntities())
+            {
+                gvEstatusPrensa.DataSource = db.EstatusPrensa.Where(_ => _.activo).ToList();
+                gvEstatusPrensa.SelectedIndex = selectedIndex;
+                gvEstatusPrensa.EditIndex = editIndex;
+                gvEstatusPrensa.PageIndex = pageIndex;
+                gvEstatusPrensa.DataBind();
             }
         }
 
@@ -140,15 +152,19 @@ namespace PPM.Administrador
             {
                 if (Int32.TryParse(hdnPrensa_id.Value.Trim(), out Int32 _PrensaId) && _PrensaId > 0)
                 {
-                    if (Int32.TryParse(ddlTurno.SelectedValue, out Int32 _Turno) && _Turno > 0)
+                    if (DateTime.TryParse(txtFecha.Text.Trim(), out DateTime _Fecha) && _Fecha.Year > 1900)
                     {
                         hdnPrograma_id.Value = "0";
+                        txtPrograma_Hora.Text = DateTime.Now.ToString("HH:mm");
                         txtPrograma_NoParte.Text = "";
-                        ddlPrograma_Estatus.SelectedValue = "1";//Programado
+                        txtPrograma_CantidadProgramada.Text = "";
+                        txtPrograma_CantidadCorrida.Text = "";
+                        ddlPrograma_Estatus.SelectedIndex = -1; //.SelectedValue = "1";//Programado
+                        ddlPrograma_EstatusPrensa.SelectedIndex = -1; //.SelectedValue = "0";
                         mdlPrograma.Show();
                     }
                     else
-                        throw new Exception("Selecciona un Turno");
+                        throw new Exception("Selecciona una Fecha");
                 }
                 else
                     throw new Exception("Selecciona una Prensa");
@@ -193,8 +209,12 @@ namespace PPM.Administrador
                     if (item != null)
                     {
                         hdnPrograma_id.Value = item.id.ToString();
+                        txtPrograma_Hora.Text = item.Hora != null ? item.Hora.Value.ToString("hh\\:mm") : "";
                         txtPrograma_NoParte.Text = item.NoParte.Trim();
                         ddlPrograma_Estatus.SelectedValue = item.EstatusId.ToString();
+                        txtPrograma_CantidadProgramada.Text = item.cantidad_programada != null ? item.cantidad_programada.ToString() : "";
+                        txtPrograma_CantidadCorrida.Text = item.cantidad_corrida != null ? item.cantidad_corrida.ToString() : "";
+                        ddlPrograma_EstatusPrensa.SelectedValue = item.EstatusPrensaId.ToString();
                     }
                     load_programas(-1, e.NewEditIndex, gvProgramas.PageIndex);
                     mdlPrograma.Show();
@@ -215,33 +235,43 @@ namespace PPM.Administrador
                     throw new Exception("Selecciona una prensa");
                 int.TryParse(hdnPrograma_id.Value, out int _idPrograma);
                 int.TryParse(ddlPrograma_Estatus.SelectedValue, out int _EstatusId);
+                int.TryParse(ddlPrograma_EstatusPrensa.SelectedValue, out int _EstatusPrensaId);
+                TimeSpan? _hora = null;
+                if (TimeSpan.TryParse(txtPrograma_Hora.Text, out TimeSpan hora))
+                {
+                    _hora= hora;
+                }
+                double? _cantidad_programada = null, _cantidad_corrida = null;
+                if (double.TryParse(txtPrograma_CantidadProgramada.Text.Trim(), out double cantidad_programada))
+                {
+                    _cantidad_programada = cantidad_programada;
+                }
+                if (double.TryParse(txtPrograma_CantidadCorrida.Text.Trim(), out double cantidad_corrida))
+                {
+                    _cantidad_corrida = cantidad_corrida;
+                }
                 if (DateTime.TryParse(txtFecha.Text.Trim(), out DateTime _fecha))
                 {
-                    if (Int32.TryParse(ddlTurno.SelectedValue, out Int32 _turno))
+                    using (PPMEntities db = new PPMEntities())
                     {
-                        using (PPMEntities db = new PPMEntities())
-                        {
-                            int? _secuencia = db.Programa.Where(_ => _.PrensaId == _PrensaId && _.Turno == _turno && _.Fecha == _fecha).Max(_ => _.Secuencia).GetValueOrDefault() + 1;
-                            var item = db.Programa.Where(_ => _.id == _idPrograma).FirstOrDefault();
-                            item = item != null ? item : new Programa() { };
-                            item.PrensaId = _PrensaId;
-                            item.NoParte = txtPrograma_NoParte.Text.Trim();
-                            item.EstatusId = _EstatusId;
-                            item.Fecha = item.id > 0 ? item.Fecha : _fecha;
-                            item.Turno = item.id > 0 ? item.Turno : _turno;
-                            item.Secuencia = item.id > 0 ? item.Secuencia : (_secuencia ?? 1);
-                            item.usuario_captura = User.Identity.Name;
-                            item.fecha_captura = DateTime.Now;
-                            db.Entry(item).State = item.id > 0 ? System.Data.Entity.EntityState.Modified : System.Data.Entity.EntityState.Added;
-                            db.SaveChanges();
-                        }
-                        load_programas(-1, -1, gvProgramas.PageIndex);
+                        int? _secuencia = db.Programa.Where(_ => _.PrensaId == _PrensaId && _.Fecha == _fecha).Max(_ => _.Secuencia).GetValueOrDefault() + 1;
+                        var item = db.Programa.Where(_ => _.id == _idPrograma).FirstOrDefault();
+                        item = item != null ? item : new Programa() { };
+                        item.PrensaId = _PrensaId;
+                        item.NoParte = txtPrograma_NoParte.Text.Trim();
+                        item.EstatusId = _EstatusId;
+                        item.Fecha = item.id > 0 ? item.Fecha : _fecha;
+                        item.Hora = _hora;
+                        item.Secuencia = item.id > 0 ? item.Secuencia : (_secuencia ?? 1);
+                        item.EstatusPrensaId = _EstatusPrensaId;
+                        item.cantidad_programada = _cantidad_programada;
+                        item.cantidad_corrida = _cantidad_corrida;
+                        item.usuario_captura = User.Identity.Name;
+                        item.fecha_captura = DateTime.Now;
+                        db.Entry(item).State = item.id > 0 ? System.Data.Entity.EntityState.Modified : System.Data.Entity.EntityState.Added;
+                        db.SaveChanges();
                     }
-                    else
-                    {
-                        alerta("Turno no valido");
-                        ddlTurno.Focus();
-                    }
+                    load_programas(-1, -1, gvProgramas.PageIndex);
                 }
                 else
                 {
@@ -285,10 +315,10 @@ namespace PPM.Administrador
                             switch (e.CommandName)
                             {
                                 case "subir":
-                                    aux = db.Programa.Where(_ => _.PrensaId == programa.PrensaId && _.Fecha == programa.Fecha && _.Turno == programa.Turno && _.Secuencia < secuencia).OrderByDescending(_ => _.Secuencia).FirstOrDefault();
+                                    aux = db.Programa.Where(_ => _.PrensaId == programa.PrensaId && _.Fecha == programa.Fecha && _.Secuencia < secuencia).OrderByDescending(_ => _.Secuencia).FirstOrDefault();
                                     break;
                                 case "bajar":
-                                    aux = db.Programa.Where(_ => _.PrensaId == programa.PrensaId && _.Fecha == programa.Fecha && _.Turno == programa.Turno && _.Secuencia > secuencia).OrderBy(_ => _.Secuencia).FirstOrDefault();
+                                    aux = db.Programa.Where(_ => _.PrensaId == programa.PrensaId && _.Fecha == programa.Fecha && _.Secuencia > secuencia).OrderBy(_ => _.Secuencia).FirstOrDefault();
                                     break;
                                 default:
                                     break;

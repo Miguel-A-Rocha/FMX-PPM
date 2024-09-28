@@ -78,6 +78,15 @@ namespace PPM
         protected global::System.Web.UI.WebControls.LinkButton lnkCaptura;
 
         /// <summary>
+        /// lnkAceros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkAceros;
+
+        /// <summary>
         /// lnkAdministrador control.
         /// </summary>
         /// <remarks>

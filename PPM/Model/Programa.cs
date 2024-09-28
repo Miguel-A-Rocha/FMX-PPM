@@ -16,7 +16,7 @@ namespace PPM.Model
     {
         public int id { get; set; }
         public System.DateTime Fecha { get; set; }
-        public int Turno { get; set; }
+        public Nullable<System.TimeSpan> Hora { get; set; }
         public int PrensaId { get; set; }
         public Nullable<int> Secuencia { get; set; }
         public string NoParte { get; set; }
@@ -24,8 +24,12 @@ namespace PPM.Model
         public Nullable<System.DateTime> FechaHora { get; set; }
         public string usuario_captura { get; set; }
         public System.DateTime fecha_captura { get; set; }
+        public Nullable<double> cantidad_programada { get; set; }
+        public Nullable<double> cantidad_corrida { get; set; }
+        public int EstatusPrensaId { get; set; }
     
         public virtual Estatus Estatus { get; set; }
+        public virtual EstatusPrensa EstatusPrensa { get; set; }
         public virtual Prensas Prensas { get; set; }
     }
 }
