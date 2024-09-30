@@ -70,7 +70,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li id="liDefault" class="nav-item fw-bold border border-bottom-0 rounded-top m-1 border-secondary">
-                            <asp:LinkButton runat="server" CssClass="nav-link text-lg-left" PostBackUrl="~/Default.aspx" Text="Cobertura por Proyectos"></asp:LinkButton>
+                            <asp:LinkButton runat="server" CssClass="nav-link text-lg-left" PostBackUrl="~/Default.aspx" Text="Programa"></asp:LinkButton>
                         </li>
                         <li id="liAdministrador" runat="server" class="nav-item fw-bold border border-bottom-0 rounded-top m-1 border-secondary dropdown">
                             <a id="liConfiguracion" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Configuración

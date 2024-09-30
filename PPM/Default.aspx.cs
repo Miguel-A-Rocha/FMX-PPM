@@ -85,7 +85,7 @@ namespace PPM
         {
             using (PPMEntities db = new PPMEntities())
             {
-                gvEstatusPrensa.DataSource = db.EstatusPrensa.Where(_ => _.activo).ToList();
+                gvEstatusPrensa.DataSource = db.EstatusPrensa.Where(_ => _.activo && _.id != 0).ToList();
                 gvEstatusPrensa.SelectedIndex = selectedIndex;
                 gvEstatusPrensa.EditIndex = editIndex;
                 gvEstatusPrensa.PageIndex = pageIndex;

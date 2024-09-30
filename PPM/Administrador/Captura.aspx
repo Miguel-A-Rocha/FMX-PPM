@@ -193,7 +193,7 @@
                             <div class="col">
                                 <div class="card small">
                                     <div class="card-header shadow-sm">
-                                        <li class="fa fa-tasks fa-2x">&nbsp;<span class="h6 fw-bold align-middle" style="font-family: Arial!important;">Estatus de Prensa</span></li>
+                                        <li class="fa fa-tasks fa-2x">&nbsp;<span class="h6 fw-bold align-middle" style="font-family: Arial!important;">Estatus de Corrida</span></li>
                                     </div>
                                     <div class="card-body">
                                         <asp:GridView ID="gvEstatusPrensa" runat="server" ShowHeader="false" DataKeyNames="id" CssClass="table table-sm small small w-100" GridLines="None" AutoGenerateColumns="false">
