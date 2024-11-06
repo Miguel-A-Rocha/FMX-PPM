@@ -12,11 +12,13 @@ namespace PPM.Administrador
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ///Valida si la pagina no se esta cargando por algun evento disparado por el usuario
             if (!Page.IsPostBack)
             {
                 txtFecha.Text = DateTime.Now.ToString("yyyy/MM/dd");
                 try
                 {
+                    //Establece una nueva conexion de base de datos 
                     using (PPMEntities db = new PPMEntities())
                     {
                         var user = db.administradores.Where(_ => _.UserName == HttpContext.Current.User.Identity.Name.Trim()).FirstOrDefault();
@@ -62,6 +64,7 @@ namespace PPM.Administrador
         protected void load_prensas(int selectedIndex, int editIndex, int pageIndex)
         {
             string search = txtPrensaSearch.Text.Trim();
+            //Establece una nueva conexion de base de datos 
             using (PPMEntities db = new PPMEntities())
             {
                 gvPrensas.DataSource = db.Prensas.Where(_ => _.nombre.Contains(search)).OrderBy(_ => _.nombre).ToList();
@@ -80,6 +83,7 @@ namespace PPM.Administrador
             }
             catch (Exception ex)
             {
+                //Encaso de que ocurra algun error muestra un mensaje en pantalla con el detalle del error ocurrido
                 alerta(ex.InnerException == null ? ex.Message : (ex.InnerException.InnerException == null ? ex.InnerException.Message : ex.InnerException.InnerException.Message));
             }
         }
@@ -97,6 +101,7 @@ namespace PPM.Administrador
             Int32.TryParse(hdnPrensa_id.Value.Trim(), out Int32 _PrensaId);
             DateTime.TryParse(txtFecha.Text.Trim(), out DateTime _Fecha);
             string search = txtProgramaSearch.Text.Trim();
+            //Establece una nueva conexion de base de datos 
             using (PPMEntities db = new PPMEntities())
             {
                 gvProgramas.DataSource = db.Programa.Where(_ => _.PrensaId == _PrensaId && _.Fecha == _Fecha && _.NoParte.Contains(search)).OrderBy(_ => _.NoParte).OrderBy(_=>_.Fecha).ThenBy(_=>_.Hora).ThenBy(_=>_.Secuencia).ToList();
@@ -109,6 +114,7 @@ namespace PPM.Administrador
 
         protected void load_estatus(int selectedIndex, int editIndex, int pageIndex)
         {
+            //Establece una nueva conexion de base de datos 
             using (PPMEntities db = new PPMEntities())
             {
                 gvEstatus.DataSource = db.Estatus.Where(_=>_.activo).ToList();
@@ -121,6 +127,7 @@ namespace PPM.Administrador
 
         protected void load_estatus_prensa(int selectedIndex, int editIndex, int pageIndex)
         {
+            //Establece una nueva conexion de base de datos 
             using (PPMEntities db = new PPMEntities())
             {
                 gvEstatusPrensa.DataSource = db.EstatusPrensa.Where(_ => _.activo).ToList();
@@ -142,6 +149,7 @@ namespace PPM.Administrador
             }
             catch (Exception ex)
             {
+                //Encaso de que ocurra algun error muestra un mensaje en pantalla con el detalle del error ocurrido
                 alerta(ex.InnerException == null ? ex.Message : (ex.InnerException.InnerException == null ? ex.InnerException.Message : ex.InnerException.InnerException.Message));
             }
         }
@@ -172,6 +180,7 @@ namespace PPM.Administrador
             }
             catch (Exception ex)
             {
+                //Encaso de que ocurra algun error muestra un mensaje en pantalla con el detalle del error ocurrido
                 alerta(ex.InnerException == null ? ex.Message : (ex.InnerException.InnerException == null ? ex.InnerException.Message : ex.InnerException.InnerException.Message));
             }
         }
@@ -181,6 +190,7 @@ namespace PPM.Administrador
             try
             {
                 int.TryParse(gvProgramas.DataKeys[e.RowIndex].Value.ToString(), out int _idPrograma);
+                //Establece una nueva conexion de base de datos 
                 using (PPMEntities db = new PPMEntities())
                 {
                     var item = db.Programa.Where(_ => _.id == _idPrograma).FirstOrDefault();
@@ -194,6 +204,7 @@ namespace PPM.Administrador
             }
             catch (Exception ex)
             {
+                //Encaso de que ocurra algun error muestra un mensaje en pantalla con el detalle del error ocurrido
                 alerta(ex.InnerException == null ? ex.Message : (ex.InnerException.InnerException == null ? ex.InnerException.Message : ex.InnerException.InnerException.Message));
             }
         }
@@ -203,6 +214,7 @@ namespace PPM.Administrador
             try
             {
                 int.TryParse(gvProgramas.DataKeys[e.NewEditIndex].Value.ToString(), out int _idPrograma);
+                //Establece una nueva conexion de base de datos 
                 using (PPMEntities db = new PPMEntities())
                 {
                     var item = db.Programa.Where(_ => _.id == _idPrograma).FirstOrDefault();
@@ -222,6 +234,7 @@ namespace PPM.Administrador
             }
             catch (Exception ex)
             {
+                //Encaso de que ocurra algun error muestra un mensaje en pantalla con el detalle del error ocurrido
                 alerta(ex.InnerException == null ? ex.Message : (ex.InnerException.InnerException == null ? ex.InnerException.Message : ex.InnerException.InnerException.Message));
             }
         }
@@ -252,6 +265,7 @@ namespace PPM.Administrador
                 }
                 if (DateTime.TryParse(txtFecha.Text.Trim(), out DateTime _fecha))
                 {
+                    //Establece una nueva conexion de base de datos 
                     using (PPMEntities db = new PPMEntities())
                     {
                         int? _secuencia = db.Programa.Where(_ => _.PrensaId == _PrensaId && _.Fecha == _fecha).Max(_ => _.Secuencia).GetValueOrDefault() + 1;
@@ -281,6 +295,7 @@ namespace PPM.Administrador
             }
             catch (Exception ex)
             {
+                //Encaso de que ocurra algun error muestra un mensaje en pantalla con el detalle del error ocurrido
                 alerta(ex.InnerException == null ? ex.Message : (ex.InnerException.InnerException == null ? ex.InnerException.Message : ex.InnerException.InnerException.Message));
                 mdlPrograma.Show();
             }
@@ -306,6 +321,7 @@ namespace PPM.Administrador
                 if (row.RowIndex == (gvProgramas.Rows.Count - 1) && e.CommandName == "bajar") return;
                 if (int.TryParse(e.CommandArgument.ToString(), out int secuencia) && secuencia >= 0)
                 {
+                    //Establece una nueva conexion de base de datos 
                     using (PPMEntities db = new PPMEntities())
                     {
                         Programa programa = db.Programa.Where(_ => _.id == _Id).FirstOrDefault();
@@ -336,6 +352,7 @@ namespace PPM.Administrador
             }
             catch (Exception ex)
             {
+                //Encaso de que ocurra algun error muestra un mensaje en pantalla indicando que ocurrio un error al ordenar el programa
                 alerta("Ocurrio un problema al ordenar el programa");
             }
         }
